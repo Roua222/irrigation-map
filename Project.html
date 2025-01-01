@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Irrigation Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px; /* Set the height of the map */
+            width: 100%; /* Set the width of the map */
+        }
+    </style>
+</head>
+<body>
+    <h1>Irrigation Map</h1>
+    <div id="map"></div>
+
+    <!-- Load Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+        // Initialize the map
+        var mymap = L.map('map').setView([34, 8], 6);
+
+        // Add an OpenStreetMap base layer
+        var fondOSM = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        });
+        fondOSM.addTo(mymap);
+
+        // Load GeoJSON data (replace with the actual path to your GeoJSON file)
+        fetch('D:/Users/LENOVO-PC/Desktop/web_mapping/irrigationpercentage.geojson')
+            .then(response => response.json())
+            .then(data => {
+                // Add GeoJSON layer to the map
+                L.geoJSON(data, {
+                    style: function (feature) {
+                        return { color: 'blue' }; // Optional: Customize the style
+                    }
+                }).addTo(mymap);
+            })
+            .catch(error => console.error('Error loading GeoJSON:', error));
+    </script>
+
+    <h2>HTML Images</h2>
+    <p>Logo</p>
+    <img src="C:\Users\LENOVO\Downloads\306159004_452538953521709_1277074382226302163_n.jpg" width="200" height="200">
+</body>
+</html>
+
